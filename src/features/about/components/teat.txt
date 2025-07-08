@@ -1,0 +1,7 @@
+Writing this from the point of view of a software engineer:
+
+For the question "what did i learn?": Steve Krung escreve de forma bem lógica e elucida muito bem o que um designer passa quando vai traduzir os pedidos do cliente para o design. O que priorizar? O que de fato o usuário quer ver? Steve trata dos assuntos mais atômicos, como a visibilidade de um botão em uma página web, até o aninhamento de menus e como criar estratégias para evitar que o usuário se perca no seu site.
+
+Segundo Steve, os usuários não leem os nossos sites, mas os escaneia para encontrar o primeiro ponto de interesse, isso pode ser um botão, um texto, ou um link, qualquer coisa que aparente ser um portal que os leve até a informação que eles buscam. Podemos usar isso ao nosso favor na hora de criar o wireframe das nossas páginas, criando pontos de interesse que fazem uso do fator "scan" do usuário para guia-los pelo caminho correto. Isso serve tanto num contexto BCG onde buscamos otimizar a produtividade de quem usar nossos dashboards, quanto num contexto de venda, onde queremos guiar o usuário para que ele realize compras de forma rápida e suave.
+
+Outro ponto interessante foi como Steve elucidou como o usuário se localiza dentro de um site, Steve coloca o leitor dentro da mente de um usuário

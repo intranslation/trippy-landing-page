@@ -1,0 +1,22 @@
+import { motion, useScroll, useTransform } from "motion/react";
+import About from "./features/about/about";
+import MyScene from "./features/scene/scene";
+
+function App() {
+  const { scrollYProgress } = useScroll();
+  const background = useTransform(
+    scrollYProgress,
+    [0, 0.4, 1],
+    ["#00000000", "#09090B", "#09090B"],
+  );
+  return (
+    <div className="bg-black">
+      <MyScene />
+      <motion.section style={{ background }} className="absolute top-0 left-0">
+        <About />
+      </motion.section>
+    </div>
+  );
+}
+
+export default App;
