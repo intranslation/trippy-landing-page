@@ -10,7 +10,7 @@ import { saveLead } from "../api/send-lead";
 const schema = z.object({
   name: z.string().min(1, "Nome obrigatório"),
   email: z.string().email("E-mail inválido"),
-  phone: z.string().min(11),
+  phone: z.string().min(11).max(11),
   aggreement: z.literal(true, {
     errorMap: () => ({ message: "Você deve aceitar os termos" }),
   }),
@@ -97,6 +97,7 @@ export default function LeadForm({
                 className="h-[50px] w-full rounded-2xl border-white/20 bg-zinc-200 p-4 text-base text-zinc-900"
                 placeholder="Seu número de telefone"
                 {...register("phone")}
+                maxLength={12}
                 onChange={(e) => {
                   e.target.value = phoneMask(e.target.value);
                   register("phone").onChange({

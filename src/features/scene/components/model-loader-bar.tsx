@@ -30,7 +30,6 @@ export default function ModelLoaderBar() {
 
     const animate = () => {
       setSmoothed((prev) => prev + (progress - prev) * 0.3); // lerp smoothing
-      console.log(smoothed);
       frame = requestAnimationFrame(animate);
     };
 
