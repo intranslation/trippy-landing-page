@@ -9,7 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview"
   },
-  "dependenczies": {
+  "dependencies": {
     "@hookform/resolvers": "^5.1.1",
     "@phosphor-icons/react": "^2.1.10",
     "@react-three/drei": "^10.4.2",
