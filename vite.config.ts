@@ -7,6 +7,14 @@ import tailwindcss from "@tailwindcss/vite";
 export default defineConfig({
   plugins: [react(), tailwindcss(), liveReload("./src/**/*.tsx")],
   server: {
+    proxy: {
+      "/api": {
+        target: "https://save-lead-14743591223.us-central1.run.app",
+        changeOrigin: true,
+        secure: false,
+        rewrite: (path) => path.replace(/^\/api/, ""),
+      },
+    },
     hmr: true,
     watch: {
       usePolling: true,

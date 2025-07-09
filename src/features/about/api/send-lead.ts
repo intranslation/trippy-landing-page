@@ -9,9 +9,15 @@ interface Params {
 }
 
 export async function saveLead(params: Params) {
+  console.log(params);
   const { data, status } = await httpClient.post(
     "https://save-lead-14743591223.us-central1.run.app",
-    { ...params },
+    JSON.stringify(params),
+    {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    },
   );
 
   if (status !== 200) {
