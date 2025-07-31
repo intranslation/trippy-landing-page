@@ -86,7 +86,7 @@ export default function ModelLoaderBar() {
             }}
           >
             <h1 className="font-josefin-sans text-2xl text-[6vw] font-bold text-zinc-300">
-              Planejando os destinos dos <br />
+              Planejando a viagem dos <br />
               seus sonhos...
             </h1>
 

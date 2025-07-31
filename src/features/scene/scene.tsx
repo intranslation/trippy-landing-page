@@ -8,6 +8,12 @@ import { useEffect, useRef, useState } from "react";
 import Stars from "./components/stars";
 
 export default function MyScene() {
+  const [bringWorldForward, setBringWorldForward] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setBringWorldForward(true);
+    }, 3500);
+  }, []);
   return (
     <div
       style={{
@@ -26,7 +32,7 @@ export default function MyScene() {
         }}
         shadows
       >
-        <PlanetModel position={new THREE.Vector3(0, 0, 0)} />
+        {bringWorldForward && <AnimatedPlanetModel />}
         <RadialBackground />
         <FontText />
         <Stars count={1500} />
@@ -41,6 +47,26 @@ export default function MyScene() {
         {/* <OrbitControls /> */}
       </Canvas>
     </div>
+  );
+}
+
+function AnimatedPlanetModel() {
+  const planetRef = useRef<THREE.Group>(null);
+  const [position] = useState(new THREE.Vector3(0, -4, -10)); // Start further back
+  const targetPosition = useRef(new THREE.Vector3(0, 0, 0)); // End closer to camera
+
+  useFrame(() => {
+    if (!planetRef.current) return;
+
+    // Slowly move towards the target position
+    position.lerp(targetPosition.current, 0.01); // 0.01 controls the speed (slower = smaller value)
+    planetRef.current.position.copy(position);
+  });
+
+  return (
+    <group ref={planetRef}>
+      <PlanetModel position={new THREE.Vector3(0, 0, 0)} />
+    </group>
   );
 }
 
