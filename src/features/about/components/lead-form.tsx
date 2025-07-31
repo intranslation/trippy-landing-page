@@ -6,11 +6,12 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { phoneMask } from "../../../utils/functions";
 import { AnimatePresence, motion } from "motion/react";
 import { saveLead } from "../api/send-lead";
+import { useEffect } from "react";
 
 const schema = z.object({
   name: z.string().min(1, "Nome obrigatório"),
   email: z.string().email("E-mail inválido"),
-  phone: z.string().min(11).max(11),
+  phone: z.string().min(11).max(16),
   aggreement: z.literal(true, {
     errorMap: () => ({ message: "Você deve aceitar os termos" }),
   }),
@@ -47,6 +48,11 @@ export default function LeadForm({
     }
   };
 
+  useEffect(() => {
+    console.log(errors);
+    console.log(isValid);
+  }, [errors, isValid]);
+
   return (
     <AnimatePresence>
       <motion.form
@@ -54,6 +60,9 @@ export default function LeadForm({
         onSubmit={handleSubmit(onSubmit)}
         className="border border-white/20 px-6 py-8"
       >
+        {/* <h1 className="text-white">{JSON.stringify(errors)}</h1> */}
+        {/* <h1 className="text-white">{isValid}</h1> */}
+
         {formFilled && (
           <motion.div
             key="gif-okay"
@@ -79,18 +88,32 @@ export default function LeadForm({
             exit={{ opacity: 0 }}
             className="flex w-full flex-col items-center justify-start gap-6 rounded-2xl"
           >
-            <input
-              type="text"
-              className={`h-[50px] w-full rounded-2xl border-white/20 bg-zinc-200 p-4 text-base text-zinc-900 ${errors.name ? "border-red-400" : ""}`}
-              placeholder="Seu nome"
-              {...register("name")}
-            />
-            <input
-              type="email"
-              className="h-[50px] w-full rounded-2xl border-white/20 bg-zinc-200 p-4 text-base text-zinc-900"
-              placeholder="Seu melhor e-mail"
-              {...register("email")}
-            />
+            <div className="w-full">
+              <input
+                type="text"
+                className={`h-[50px] w-full rounded-2xl border-white/20 bg-zinc-200 p-4 text-base text-zinc-900 ${errors.name ? "border-red-400" : ""}`}
+                placeholder="Seu nome"
+                {...register("name")}
+              />
+              {errors.name && (
+                <label className="text-left text-sm text-red-400">
+                  {errors.name.message}
+                </label>
+              )}
+            </div>
+            <div className="w-full">
+              <input
+                type="email"
+                className="h-[50px] w-full rounded-2xl border-white/20 bg-zinc-200 p-4 text-base text-zinc-900"
+                placeholder="Seu melhor e-mail"
+                {...register("email")}
+              />
+              {errors.email && (
+                <label className="text-left text-sm text-red-400">
+                  {errors.email.message}
+                </label>
+              )}
+            </div>
             <div className="w-full">
               <input
                 type="text"
@@ -107,16 +130,22 @@ export default function LeadForm({
               />
               {errors.phone && (
                 <label className="text-left text-sm text-red-400">
-                  Este número não parece estar correto, tente digitar no format
-                  (xx) xxxxx-xxxx
+                  Este número não parece estar correto
                 </label>
               )}
             </div>
-            <div className="flex flex-nowrap items-center gap-2 text-white">
-              <Checkbox props={{ ...register("aggreement") }}>
-                Ao clicar na caixinha, você aceita o envio de e-mails e
-                mensagens da plataforma trippy
-              </Checkbox>
+            <div className="flex flex-col items-start justify-start gap-4">
+              <div className="flex flex-nowrap items-center gap-2 text-white">
+                <Checkbox props={{ ...register("aggreement") }}>
+                  Ao clicar na caixinha, você aceita o envio de e-mails e
+                  mensagens da plataforma trippy
+                </Checkbox>
+              </div>
+              {errors.aggreement && (
+                <label className="text-left text-sm text-red-400">
+                  {errors.aggreement.message}
+                </label>
+              )}
             </div>
 
             <button

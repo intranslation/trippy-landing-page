@@ -26,12 +26,12 @@ export default function WhyTrippy() {
 
       <div className="my-20 flex flex-col gap-2 text-center">
         <Label>
-          Planejar sua viagem não precisar ser um momento de ansiedade e
-          indecisão.
+          Chega de ansiedade na hora de montar seu roteiro — o Trippy deixa o
+          planejamento de viagem fácil e rápido.
         </Label>
         <Label>
-          Trippy está aqui para isso, te ajudando a montar o melhor roteiro para
-          o seu objetivo.
+          Te ajudamos a escolher os melhores caminhos para chegar ao seu
+          destino.
         </Label>
       </div>
 

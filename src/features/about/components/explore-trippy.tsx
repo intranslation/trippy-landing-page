@@ -10,15 +10,20 @@ export default function ExploreTrippy() {
         // }}
         className="fixed top-0 left-0 z-10 h-screen w-screen md:hidden"
       ></motion.div>
-      <div className="relative z-30 mx-auto mt-[100vh] flex h-screen max-w-[1800px] flex-col items-center justify-between gap-12 px-4 text-2xl text-white lg:mt-0 lg:flex-row lg:justify-between lg:gap-0">
+      <div className="font-josefin-sans relative z-30 mx-auto mt-[100vh] flex h-screen max-w-[1800px] flex-col items-center justify-between gap-12 px-4 text-2xl text-white lg:mt-0 lg:flex-row lg:justify-between lg:gap-0">
         <div className="flex w-full flex-col items-start justify-center gap-4 md:w-fit">
-          <span className="max-w-[400px] text-[1.8rem] leading-[2.4rem] font-bold text-white md:text-[1.7rem]">
-            Descubra destinos de tirar o fôlego,
+          <span className="max-w-[400px] text-[1.8rem] leading-[2.4rem] text-white md:text-[1.7rem]">
+            {/* Descubra destinos de tirar o fôlego,
             <span className="text-[#60A5FA]">
               {" "}
               planeje aventuras inesquecíveis,
             </span>{" "}
-            e crie memórias que durarão a vida inteira.
+            e crie memórias que durarão a vida inteira. */}
+            O Trippy é um <span className="text-[#60A5FA]">app de viagens</span>{" "}
+            feito para aqueles que querem{" "}
+            <span className="text-[#60A5FA]">descobrir</span> destinos
+            incríveis, <span className="text-[#60A5FA]">planejar </span>
+            cada detalhe com praticidade e viver momentos inesquecíveis juntos.
           </span>
         </div>
 
