@@ -1,4 +1,14 @@
+@import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
+
 @import "tailwindcss";
+
+:root {
+  --font-josefin-sans: "Josefin Sans";
+}
+
+@theme inline {
+  --font-josefin-sans: var(--font-josefin-sans);
+}
 
 html {
   scroll-behavior: smooth;

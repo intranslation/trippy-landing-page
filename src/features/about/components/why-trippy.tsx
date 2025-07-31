@@ -7,8 +7,8 @@ import {
   UsersIcon,
 } from "@phosphor-icons/react";
 import { motion } from "motion/react";
-import Label from "../../../components/ui/label";
-import Title from "../../../components/ui/title";
+import Label from "../../../shared/components/ui/label";
+import Title from "../../../shared/components/ui/title";
 import LeadForm from "./lead-form";
 import { useState } from "react";
 

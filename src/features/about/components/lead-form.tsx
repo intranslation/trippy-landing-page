@@ -1,5 +1,5 @@
 import { ArrowRightIcon } from "@phosphor-icons/react";
-import Checkbox from "../../../components/ui/checkbox";
+import Checkbox from "../../../shared/components/ui/checkbox";
 import { useForm } from "react-hook-form";
 import z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
