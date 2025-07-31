@@ -32,6 +32,7 @@ export default function MyScene() {
         }}
         shadows
       >
+        <NebulaBackground />
         {bringWorldForward && <AnimatedPlanetModel />}
         <RadialBackground />
         <FontText />
@@ -47,6 +48,101 @@ export default function MyScene() {
         {/* <OrbitControls /> */}
       </Canvas>
     </div>
+  );
+}
+
+function NebulaBackground() {
+  const meshRef = useRef<THREE.Mesh>(null);
+
+  // Vertex shader
+  const vertexShader = `
+    varying vec2 vUv;
+    void main() {
+      vUv = uv;
+      gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+    }
+  `;
+
+  // Fragment shader for nebula effect
+  const fragmentShader = `
+    uniform float time;
+    varying vec2 vUv;
+
+    // Simple noise function
+    float random(vec2 st) {
+      return fract(sin(dot(st.xy, vec2(12.9898,78.233))) * 43758.5453123);
+    }
+
+    float noise(vec2 st) {
+      vec2 i = floor(st);
+      vec2 f = fract(st);
+      float a = random(i);
+      float b = random(i + vec2(1.0, 0.0));
+      float c = random(i + vec2(0.0, 1.0));
+      float d = random(i + vec2(1.0, 1.0));
+      vec2 u = f * f * (3.0 - 2.0 * f);
+      return mix(a, b, u.x) + (c - a) * u.y * (1.0 - u.x) + (d - b) * u.x * u.y;
+    }
+
+    float fbm(vec2 st) {
+      float value = 0.0;
+      float amplitude = 0.5;
+      float frequency = 0.0;
+      for (int i = 0; i < 6; i++) {
+        value += amplitude * noise(st);
+        st *= 2.0;
+        amplitude *= 0.5;
+      }
+      return value;
+    }
+
+    void main() {
+      vec2 st = vUv * 3.0;
+
+      // Animate the noise
+      vec2 q = vec2(fbm(st + 0.0 * time), fbm(st + vec2(1.0)));
+      vec2 r = vec2(fbm(st + 1.0 * q + vec2(1.7, 9.2) + 0.15 * time),
+                    fbm(st + 1.0 * q + vec2(8.3, 2.8) + 0.126 * time));
+
+      float f = fbm(st + r);
+
+      // Create nebula colors
+      vec3 color1 = vec3(0.1, 0.05, 0.2); // Dark blue
+      vec3 color2 = vec3(0.3, 0.1, 0.5);  // Purple
+      vec3 color3 = vec3(0.11, 0.12, 0.33);  // Bright purple
+      vec3 color4 = vec3(0.11, 0.12, 0.33);  // Light purple
+
+      vec3 color = mix(color1, color2, f);
+      color = mix(color, color3, f * f);
+      color = mix(color, color4, f * f * f);
+
+      // Add some brightness variation
+      color *= 0.3 + 0.7 * f;
+
+      gl_FragColor = vec4(color, 1.0);
+    }
+  `;
+
+  const uniforms = {
+    time: { value: 0.0 },
+  };
+
+  useFrame((state) => {
+    if (meshRef.current) {
+      uniforms.time.value = state.clock.elapsedTime * 0.1;
+    }
+  });
+
+  return (
+    <mesh ref={meshRef} position={[0, 0, -50]} scale={[100, 100, 1]}>
+      <planeGeometry args={[1, 1]} />
+      <shaderMaterial
+        vertexShader={vertexShader}
+        fragmentShader={fragmentShader}
+        uniforms={uniforms}
+        side={THREE.DoubleSide}
+      />
+    </mesh>
   );
 }
 
